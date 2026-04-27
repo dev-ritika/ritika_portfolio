@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ritika_portfolio/presentation/widgets/sections/hero_section.dart';
+import 'package:ritika_portfolio/presentation/widgets/sections/hero_section.dart';
 import 'package:ritika_portfolio/presentation/widgets/sections/about_section.dart';
 import 'package:ritika_portfolio/presentation/widgets/sections/skills_section.dart';
 import 'package:ritika_portfolio/presentation/widgets/sections/projects_section.dart';
@@ -19,7 +20,6 @@ class HomeScreen extends StatelessWidget {
             child: Column(
               children: const [
                 HeroSection(),
-
                 AboutSection(),
                 SkillsSection(),
                 ProjectsSection(),

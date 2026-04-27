@@ -39,6 +39,8 @@ dependencies:
   google_fonts: ^8.0.2
   flutter_animate: ^4.5.2
   url_launcher: ^6.3.2
+  visibility_detector: ^0.4.0+2
+  animated_text_kit: ^4.3.0
 
 dev_dependencies:
   flutter_test:
