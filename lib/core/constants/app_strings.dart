@@ -1,0 +1,1 @@
+class AppStrings { static const name = 'Ritika Sharma'; }
