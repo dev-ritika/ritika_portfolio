@@ -1,34 +1,51 @@
 import 'package:flutter/material.dart';
-import 'package:ritika_portfolio/presentation/widgets/sections/hero_section.dart';
-import 'package:ritika_portfolio/presentation/widgets/sections/hero_section.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:ritika_portfolio/presentation/blocs/portfolio_bloc.dart';
+import 'package:ritika_portfolio/presentation/blocs/portfolio_cubit.dart';
 import 'package:ritika_portfolio/presentation/widgets/sections/about_section.dart';
-import 'package:ritika_portfolio/presentation/widgets/sections/skills_section.dart';
-import 'package:ritika_portfolio/presentation/widgets/sections/projects_section.dart';
 import 'package:ritika_portfolio/presentation/widgets/sections/experience_section.dart';
-import 'package:ritika_portfolio/presentation/widgets/sections/contact_section.dart';
-import 'package:ritika_portfolio/presentation/widgets/navbar/navbar.dart';
+import 'package:ritika_portfolio/presentation/widgets/sections/skills_section.dart';
+import '../../../../core/constants/app_colors.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  late List<GlobalKey> _sectionKeys;
+
+  @override
+  void initState() {
+    super.initState();
+    _sectionKeys = List.generate(7, (_) => GlobalKey());
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: AppColors.background,
       body: Stack(
         children: [
+          // Main scrollable content
           SingleChildScrollView(
             child: Column(
-              children: const [
-                HeroSection(),
-                AboutSection(),
-                SkillsSection(),
-                ProjectsSection(),
-                ExperienceSection(),
-                ContactSection(),
+              children: [
+                // About
+                SizedBox(key: _sectionKeys[1], child: AboutSection()),
+
+                // Skills
+                SizedBox(key: _sectionKeys[2], child: SkillsSection()),
+
+                // Experience
+                SizedBox(key: _sectionKeys[3], child: ExperienceSection()),
+
+                // Projects
               ],
             ),
           ),
-          const Navbar(),
         ],
       ),
     );
