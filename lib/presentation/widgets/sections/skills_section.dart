@@ -5,7 +5,9 @@ import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/responsive_utils.dart';
 import '../../../../data/models/portfolio_models.dart';
 import 'animated_section_wrapper.dart';
+import 'section_background.dart';
 import 'section_header.dart';
+import 'tech_globe.dart';
 
 class SkillsSection extends StatelessWidget {
   final List<SkillCategory> categories;
@@ -16,15 +18,14 @@ class SkillsSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final hPad = ResponsiveUtils.getHorizontalPadding(context);
     final isMobile = ResponsiveUtils.isMobile(context);
-    final crossAxisCount = isMobile
-        ? 1
-        : (ResponsiveUtils.isTablet(context) ? 2 : 3);
+    final crossAxisCount = isMobile ? 1 : (ResponsiveUtils.isTablet(context) ? 2 : 3);
 
-    return Container(
-      color: AppColors.surface.withOpacity(0.5),
-      padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 100),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return SectionBackground(
+      style: SectionBgStyle.surface,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 100),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SectionHeader(
             label: 'WHAT I KNOW',
@@ -38,6 +39,7 @@ class SkillsSection extends StatelessWidget {
           // Full stack row
           _buildFullStackRow(context),
         ],
+        ),
       ),
     );
   }
@@ -47,8 +49,7 @@ class SkillsSection extends StatelessWidget {
       builder: (context, constraints) {
         final spacing = 20.0;
         final itemWidth =
-            (constraints.maxWidth - spacing * (crossAxisCount - 1)) /
-            crossAxisCount;
+            (constraints.maxWidth - spacing * (crossAxisCount - 1)) / crossAxisCount;
 
         return Wrap(
           spacing: spacing,
@@ -78,7 +79,8 @@ class SkillsSection extends StatelessWidget {
             margin: const EdgeInsets.only(bottom: 48),
             child: Row(
               children: [
-                Expanded(child: Divider(color: AppColors.border, thickness: 1)),
+                Expanded(
+                    child: Divider(color: AppColors.border, thickness: 1)),
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 20),
                   child: ShaderMask(
@@ -95,9 +97,39 @@ class SkillsSection extends StatelessWidget {
                     ),
                   ),
                 ),
-                Expanded(child: Divider(color: AppColors.border, thickness: 1)),
+                Expanded(
+                    child: Divider(color: AppColors.border, thickness: 1)),
               ],
             ),
+          ),
+
+          // Globe
+          Container(
+            padding: const EdgeInsets.all(40),
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.02),
+              borderRadius: BorderRadius.circular(24),
+              border: Border.all(color: Colors.white.withOpacity(0.07)),
+              boxShadow: [
+                BoxShadow(color: AppColors.primary.withOpacity(0.10), blurRadius: 50, offset: const Offset(0, 10)),
+                BoxShadow(color: AppColors.secondary.withOpacity(0.06), blurRadius: 30, offset: const Offset(0, 4)),
+              ],
+            ),
+            child: isMobile
+                ? Column(children: [
+                    _buildGlobeHint(),
+                    const SizedBox(height: 24),
+                    const TechGlobe(),
+                  ])
+                : Row(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Expanded(flex: 4, child: _buildGlobeInfo()),
+                      Expanded(
+                          flex: 6,
+                          child: const Center(child: TechGlobe())),
+                    ],
+                  ),
           ),
         ],
       ),
@@ -157,7 +189,8 @@ class SkillsSection extends StatelessWidget {
           children: highlights.map((h) {
             final (val, lbl, col) = h;
             return Container(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: const EdgeInsets.symmetric(
+                  horizontal: 16, vertical: 10),
               decoration: BoxDecoration(
                 color: col.withOpacity(0.08),
                 border: Border.all(color: col.withOpacity(0.3)),
@@ -233,7 +266,7 @@ class _SkillCategoryCardState extends State<_SkillCategoryCard> {
                     color: widget.category.color.withOpacity(0.12),
                     blurRadius: 20,
                     offset: const Offset(0, 4),
-                  ),
+                  )
                 ]
               : [],
         ),
@@ -246,9 +279,8 @@ class _SkillCategoryCardState extends State<_SkillCategoryCard> {
                   duration: const Duration(milliseconds: 200),
                   padding: const EdgeInsets.all(10),
                   decoration: BoxDecoration(
-                    color: widget.category.color.withOpacity(
-                      _hovered ? 0.2 : 0.1,
-                    ),
+                    color: widget.category.color
+                        .withOpacity(_hovered ? 0.2 : 0.1),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   child: Icon(
@@ -328,7 +360,9 @@ class _TechPillState extends State<_TechPill> {
         duration: const Duration(milliseconds: 150),
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 7),
         decoration: BoxDecoration(
-          color: _hovered ? AppColors.primary.withOpacity(0.1) : AppColors.card,
+          color: _hovered
+              ? AppColors.primary.withOpacity(0.1)
+              : AppColors.card,
           border: Border.all(
             color: _hovered
                 ? AppColors.primary.withOpacity(0.4)

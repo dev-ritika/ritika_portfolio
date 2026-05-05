@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:ritika_portfolio/presentation/blocs/portfolio_bloc.dart';
-import 'package:ritika_portfolio/presentation/blocs/portfolio_cubit.dart';
 import 'package:ritika_portfolio/presentation/widgets/sections/about_section.dart';
 import 'package:ritika_portfolio/presentation/widgets/sections/experience_section.dart';
 import 'package:ritika_portfolio/presentation/widgets/sections/skills_section.dart';
@@ -34,18 +31,27 @@ class _HomeScreenState extends State<HomeScreen> {
             child: Column(
               children: [
                 // About
-                SizedBox(key: _sectionKeys[1], child: AboutSection()),
+                SizedBox(
+                  key: _sectionKeys[1],
+                  child: AboutSection(stats: []),
+                ),
 
                 // Skills
-                SizedBox(key: _sectionKeys[2], child: SkillsSection()),
+                SizedBox(
+                  key: _sectionKeys[2],
+                  child: SkillsSection(categories: []),
+                ),
 
                 // Experience
-                SizedBox(key: _sectionKeys[3], child: ExperienceSection()),
-
-                // Projects
+                SizedBox(
+                  key: _sectionKeys[3],
+                  child: ExperienceSection(experiences: []),
+                ),
               ],
             ),
           ),
+
+          // Sticky NavBar
         ],
       ),
     );

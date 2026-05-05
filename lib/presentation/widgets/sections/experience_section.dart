@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import 'package:ritika_portfolio/presentation/widgets/sections/animated_section_wrapper.dart';
-import 'package:ritika_portfolio/presentation/widgets/sections/section_header.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/responsive_utils.dart';
 import '../../../../data/models/portfolio_models.dart';
+import 'animated_section_wrapper.dart';
+import 'section_background.dart';
+import 'section_header.dart';
 
 class ExperienceSection extends StatelessWidget {
   final List<ExperienceModel> experiences;
@@ -16,10 +17,12 @@ class ExperienceSection extends StatelessWidget {
   Widget build(BuildContext context) {
     final hPad = ResponsiveUtils.getHorizontalPadding(context);
 
-    return Container(
-      padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 100),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+    return SectionBackground(
+      style: SectionBgStyle.dark,
+      child: Padding(
+        padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 100),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SectionHeader(
             label: 'WORK HISTORY',
@@ -38,6 +41,7 @@ class ExperienceSection extends StatelessWidget {
             );
           }),
         ],
+        ),
       ),
     );
   }
@@ -134,7 +138,7 @@ class _ExperienceCardState extends State<_ExperienceCard>
                             BoxShadow(
                               color: _accentColor.withOpacity(0.5),
                               blurRadius: 8,
-                            ),
+                            )
                           ]
                         : [],
                     border: Border.all(
@@ -190,7 +194,7 @@ class _ExperienceCardState extends State<_ExperienceCard>
                             BoxShadow(
                               color: _accentColor.withOpacity(0.08),
                               blurRadius: 20,
-                            ),
+                            )
                           ]
                         : [],
                   ),
@@ -217,21 +221,17 @@ class _ExperienceCardState extends State<_ExperienceCard>
                                         if (widget.experience.isCurrent)
                                           Container(
                                             margin: const EdgeInsets.only(
-                                              bottom: 8,
-                                            ),
+                                                bottom: 8),
                                             padding: const EdgeInsets.symmetric(
                                               horizontal: 8,
                                               vertical: 3,
                                             ),
                                             decoration: BoxDecoration(
-                                              color: _accentColor.withOpacity(
-                                                0.1,
-                                              ),
+                                              color:
+                                                  _accentColor.withOpacity(0.1),
                                               border: Border.all(
-                                                color: _accentColor.withOpacity(
-                                                  0.4,
-                                                ),
-                                              ),
+                                                  color: _accentColor
+                                                      .withOpacity(0.4)),
                                               borderRadius:
                                                   BorderRadius.circular(4),
                                             ),
@@ -294,7 +294,8 @@ class _ExperienceCardState extends State<_ExperienceCard>
                                             ),
                                             _MetaPill(
                                               icon: Icons.location_on_outlined,
-                                              label: widget.experience.location,
+                                              label:
+                                                  widget.experience.location,
                                             ),
                                             _MetaPill(
                                               icon: Icons.work_outline,
@@ -307,7 +308,8 @@ class _ExperienceCardState extends State<_ExperienceCard>
                                   ),
                                   AnimatedRotation(
                                     turns: _expanded ? 0.25 : 0,
-                                    duration: const Duration(milliseconds: 300),
+                                    duration:
+                                        const Duration(milliseconds: 300),
                                     child: Icon(
                                       Icons.chevron_right,
                                       color: AppColors.textMuted,
@@ -345,9 +347,8 @@ class _ExperienceCardState extends State<_ExperienceCard>
                                   const SizedBox(height: 16),
                                   ...widget.experience.highlights.map(
                                     (h) => Padding(
-                                      padding: const EdgeInsets.only(
-                                        bottom: 10,
-                                      ),
+                                      padding:
+                                          const EdgeInsets.only(bottom: 10),
                                       child: Row(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -401,13 +402,11 @@ class _ExperienceCardState extends State<_ExperienceCard>
                                               vertical: 5,
                                             ),
                                             decoration: BoxDecoration(
-                                              color: _accentColor.withOpacity(
-                                                0.07,
-                                              ),
+                                              color:
+                                                  _accentColor.withOpacity(0.07),
                                               border: Border.all(
-                                                color: _accentColor.withOpacity(
-                                                  0.25,
-                                                ),
+                                                color: _accentColor
+                                                    .withOpacity(0.25),
                                               ),
                                               borderRadius:
                                                   BorderRadius.circular(6),
@@ -416,9 +415,8 @@ class _ExperienceCardState extends State<_ExperienceCard>
                                               t,
                                               style: GoogleFonts.dmMono(
                                                 fontSize: 12,
-                                                color: _accentColor.withOpacity(
-                                                  0.9,
-                                                ),
+                                                color: _accentColor
+                                                    .withOpacity(0.9),
                                               ),
                                             ),
                                           ),
@@ -458,7 +456,10 @@ class _MetaPill extends StatelessWidget {
         const SizedBox(width: 4),
         Text(
           label,
-          style: GoogleFonts.dmSans(fontSize: 13, color: AppColors.textMuted),
+          style: GoogleFonts.dmSans(
+            fontSize: 13,
+            color: AppColors.textMuted,
+          ),
         ),
       ],
     );
