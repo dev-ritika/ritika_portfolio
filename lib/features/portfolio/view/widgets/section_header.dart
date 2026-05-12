@@ -42,7 +42,7 @@ class SectionHeader extends StatelessWidget {
             title,
             textAlign: isCenter ? TextAlign.center : TextAlign.start,
             style: GoogleFonts.sora(
-              fontSize: isMobile ? 30 : 44,
+              fontSize: isMobile ? 28 : (ResponsiveUtils.isTablet(context) ? 36 : 44),
               fontWeight: FontWeight.w800,
               color: Colors.white,
               letterSpacing: -1.2,
@@ -55,7 +55,7 @@ class SectionHeader extends StatelessWidget {
           subtitle,
           textAlign: isCenter ? TextAlign.center : TextAlign.start,
           style: GoogleFonts.dmSans(
-            fontSize: 16,
+            fontSize: isMobile ? 14 : 16,
             color: AppColors.textSecondary,
             height: 1.6,
           ),

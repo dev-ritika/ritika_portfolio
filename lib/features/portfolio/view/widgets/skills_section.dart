@@ -23,7 +23,7 @@ class SkillsSection extends StatelessWidget {
     return SectionBackground(
       style: SectionBgStyle.surface,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 100),
+        padding: EdgeInsets.symmetric(horizontal: hPad, vertical: ResponsiveUtils.sectionVPadding(context)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
         children: [

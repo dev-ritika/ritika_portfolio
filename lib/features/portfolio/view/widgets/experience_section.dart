@@ -20,7 +20,7 @@ class ExperienceSection extends StatelessWidget {
     return SectionBackground(
       style: SectionBgStyle.dark,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 100),
+        padding: EdgeInsets.symmetric(horizontal: hPad, vertical: ResponsiveUtils.sectionVPadding(context)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
         children: [

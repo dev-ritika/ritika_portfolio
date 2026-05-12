@@ -51,7 +51,10 @@ class _ContactSectionState extends State<ContactSection> {
     return SectionBackground(
       style: SectionBgStyle.accent,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 100),
+        padding: EdgeInsets.symmetric(
+          horizontal: hPad,
+          vertical: ResponsiveUtils.sectionVPadding(context),
+        ),
         child: Column(
           children: [
             // Section header
@@ -83,7 +86,7 @@ class _ContactSectionState extends State<ContactSection> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Expanded(flex: 4, child: _buildContactInfo()),
-        const SizedBox(width: 60),
+        const SizedBox(width: 32),
         Expanded(flex: 6, child: _buildContactForm()),
       ],
     );

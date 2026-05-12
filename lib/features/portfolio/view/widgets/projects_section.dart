@@ -6,15 +6,22 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/responsive_utils.dart';
 import '../../../../data/models/portfolio_models.dart';
+import '../../viewmodel/portfolio_viewmodel.dart';
 import 'animated_section_wrapper.dart';
 import 'section_background.dart';
 import 'section_header.dart';
 
 class ProjectsSection extends StatelessWidget {
   final List<ProjectModel> projects;
+  final PortfolioViewModel? viewModel;
   final int? hoveredIndex;
 
-  const ProjectsSection({super.key, required this.projects, this.hoveredIndex});
+  const ProjectsSection({
+    super.key,
+    required this.projects,
+    this.viewModel,
+    this.hoveredIndex,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -26,56 +33,56 @@ class ProjectsSection extends StatelessWidget {
     return SectionBackground(
       style: SectionBgStyle.surface,
       child: Padding(
-        padding: EdgeInsetsGeometry.all(20),
+        padding: EdgeInsets.symmetric(horizontal: hPad, vertical: ResponsiveUtils.sectionVPadding(context)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SectionHeader(
-              label: 'PORTFOLIO',
-              title: AppStrings.projectsTitle,
-              subtitle: AppStrings.projectsSubtitle,
-            ),
-            const SizedBox(height: 20),
-            // Flip hint
-            Row(
-              children: [
-                Icon(Icons.flip, size: 14, color: AppColors.textMuted),
-                const SizedBox(width: 6),
-                Text(
-                  'Hover a card to flip it and explore the project',
-                  style: GoogleFonts.dmSans(
-                    fontSize: 13,
-                    color: AppColors.textMuted,
-                    fontStyle: FontStyle.italic,
-                  ),
+        children: [
+          SectionHeader(
+            label: 'PORTFOLIO',
+            title: AppStrings.projectsTitle,
+            subtitle: AppStrings.projectsSubtitle,
+          ),
+          const SizedBox(height: 20),
+          // Flip hint
+          Row(
+            children: [
+              Icon(Icons.flip, size: 14, color: AppColors.textMuted),
+              const SizedBox(width: 6),
+              Text(
+                'Hover a card to flip it and explore the project',
+                style: GoogleFonts.dmSans(
+                  fontSize: 13,
+                  color: AppColors.textMuted,
+                  fontStyle: FontStyle.italic,
                 ),
-              ],
-            ),
-            const SizedBox(height: 48),
-            LayoutBuilder(
-              builder: (context, constraints) {
-                const spacing = 28.0;
-                final itemWidth =
-                    (constraints.maxWidth - spacing * (crossAxis - 1)) /
-                    crossAxis;
+              ),
+            ],
+          ),
+          const SizedBox(height: 48),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              const spacing = 28.0;
+              final itemWidth =
+                  (constraints.maxWidth - spacing * (crossAxis - 1)) /
+                      crossAxis;
 
-                return Wrap(
-                  spacing: spacing,
-                  runSpacing: spacing,
-                  children: List.generate(projects.length, (i) {
-                    return SizedBox(
-                      width: itemWidth,
-                      height: ResponsiveUtils.isMobile(context) ? 420 : 480,
-                      child: ScrollAnimatedWidget(
-                        delay: Duration(milliseconds: 100 + i * 80),
-                        child: _FlipProjectCard(project: projects[i]),
-                      ),
-                    );
-                  }),
-                );
-              },
-            ),
-          ],
+              return Wrap(
+                spacing: spacing,
+                runSpacing: spacing,
+                children: List.generate(projects.length, (i) {
+                  return SizedBox(
+                    width: itemWidth,
+                    height: ResponsiveUtils.isMobile(context) ? 420 : 480,
+                    child: ScrollAnimatedWidget(
+                      delay: Duration(milliseconds: 100 + i * 80),
+                      child: _FlipProjectCard(project: projects[i]),
+                    ),
+                  );
+                }),
+              );
+            },
+          ),
+        ],
         ),
       ),
     );
@@ -107,10 +114,9 @@ class _FlipProjectCardState extends State<_FlipProjectCard>
       vsync: this,
       duration: const Duration(milliseconds: 550),
     );
-    _anim = Tween<double>(
-      begin: 0,
-      end: 1,
-    ).animate(CurvedAnimation(parent: _ctrl, curve: Curves.easeInOutCubic));
+    _anim = Tween<double>(begin: 0, end: 1).animate(
+      CurvedAnimation(parent: _ctrl, curve: Curves.easeInOutCubic),
+    );
   }
 
   @override
@@ -156,11 +162,15 @@ class _FlipProjectCardState extends State<_FlipProjectCard>
               ..setEntry(3, 2, 0.001)
               ..rotateY(angle),
             child: showFront
-                ? _FrontFace(project: widget.project, hovered: _hovered)
+                ? _FrontFace(
+                    project: widget.project,
+                    hovered: _hovered,
+                  )
                 : Transform(
                     // counter-rotate so back isn't mirrored
                     alignment: Alignment.center,
-                    transform: Matrix4.rotationY(math.pi),
+                    transform:
+                        Matrix4.rotationY(math.pi),
                     child: _BackFace(
                       project: widget.project,
                       onLaunch: _launchUrl,
@@ -192,7 +202,8 @@ class _FrontFace extends StatelessWidget {
           end: Alignment.bottomRight,
         ),
         border: Border.all(
-          color: project.accentColor.withOpacity(hovered ? 0.55 : 0.25),
+          color: project.accentColor
+              .withOpacity(hovered ? 0.55 : 0.25),
           width: hovered ? 1.5 : 1,
         ),
         borderRadius: BorderRadius.circular(22),
@@ -214,7 +225,10 @@ class _FrontFace extends StatelessWidget {
             // ── Project image banner ───────────────────────────────────────
             Expanded(
               flex: 5,
-              child: _ProjectImageBanner(project: project, hovered: hovered),
+              child: _ProjectImageBanner(
+                project: project,
+                hovered: hovered,
+              ),
             ),
             // ── Info strip ────────────────────────────────────────────────
             Expanded(
@@ -269,17 +283,21 @@ class _FrontFace extends StatelessWidget {
                         ),
                         const SizedBox(width: 8),
                         Text(
-                          hovered ? 'Flipping…' : 'Hover to explore',
+                          hovered
+                              ? 'Flipping…'
+                              : 'Hover to explore',
                           style: GoogleFonts.dmSans(
                             fontSize: 12,
-                            color: project.accentColor.withOpacity(0.7),
+                            color: project.accentColor
+                                .withOpacity(0.7),
                           ),
                         ),
                         const Spacer(),
                         Icon(
                           Icons.flip,
                           size: 14,
-                          color: project.accentColor.withOpacity(0.5),
+                          color: project.accentColor
+                              .withOpacity(0.5),
                         ),
                       ],
                     ),
@@ -298,7 +316,8 @@ class _FrontFace extends StatelessWidget {
 class _ProjectImageBanner extends StatelessWidget {
   final ProjectModel project;
   final bool hovered;
-  const _ProjectImageBanner({required this.project, required this.hovered});
+  const _ProjectImageBanner(
+      {required this.project, required this.hovered});
 
   @override
   Widget build(BuildContext context) {
@@ -313,7 +332,8 @@ class _ProjectImageBanner extends StatelessWidget {
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [
-                project.accentColor.withOpacity(hovered ? 0.3 : 0.15),
+                project.accentColor
+                    .withOpacity(hovered ? 0.3 : 0.15),
                 AppColors.surface,
               ],
               begin: Alignment.topLeft,
@@ -339,51 +359,55 @@ class _ProjectImageBanner extends StatelessWidget {
                 duration: const Duration(milliseconds: 300),
                 padding: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  color: project.accentColor.withOpacity(hovered ? 0.25 : 0.14),
+                  color: project.accentColor
+                      .withOpacity(hovered ? 0.25 : 0.14),
                   shape: BoxShape.circle,
                   border: Border.all(
-                    color: project.accentColor.withOpacity(hovered ? 0.6 : 0.3),
+                    color: project.accentColor
+                        .withOpacity(hovered ? 0.6 : 0.3),
                     width: 2,
                   ),
                   boxShadow: hovered
                       ? [
                           BoxShadow(
-                            color: project.accentColor.withOpacity(0.4),
+                            color: project.accentColor
+                                .withOpacity(0.4),
                             blurRadius: 30,
-                          ),
+                          )
                         ]
                       : [],
                 ),
-                child: Icon(project.icon, color: project.accentColor, size: 40),
+                child: Icon(
+                  project.icon,
+                  color: project.accentColor,
+                  size: 40,
+                ),
               ),
               const SizedBox(height: 10),
               // Image placeholder tag
               Container(
                 padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
+                    horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
                   color: AppColors.surface.withOpacity(0.7),
                   borderRadius: BorderRadius.circular(20),
                   border: Border.all(
-                    color: project.accentColor.withOpacity(0.3),
-                  ),
+                      color: project.accentColor.withOpacity(0.3)),
                 ),
                 child: Row(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(
-                      Icons.add_photo_alternate_outlined,
-                      size: 12,
-                      color: project.accentColor.withOpacity(0.7),
-                    ),
+                    Icon(Icons.add_photo_alternate_outlined,
+                        size: 12,
+                        color: project.accentColor
+                            .withOpacity(0.7)),
                     const SizedBox(width: 4),
                     Text(
                       'Add screenshot',
                       style: GoogleFonts.dmMono(
                         fontSize: 10,
-                        color: project.accentColor.withOpacity(0.7),
+                        color: project.accentColor
+                            .withOpacity(0.7),
                       ),
                     ),
                   ],
@@ -403,28 +427,27 @@ class _ProjectImageBanner extends StatelessWidget {
             runSpacing: 4,
             children: project.techStack
                 .take(4)
-                .map(
-                  (t) => Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 3,
-                    ),
-                    decoration: BoxDecoration(
-                      color: AppColors.background.withOpacity(0.7),
-                      border: Border.all(
-                        color: project.accentColor.withOpacity(0.3),
+                .map((t) => Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 8, vertical: 3),
+                      decoration: BoxDecoration(
+                        color: AppColors.background
+                            .withOpacity(0.7),
+                        border: Border.all(
+                          color: project.accentColor
+                              .withOpacity(0.3),
+                        ),
+                        borderRadius: BorderRadius.circular(4),
                       ),
-                      borderRadius: BorderRadius.circular(4),
-                    ),
-                    child: Text(
-                      t,
-                      style: GoogleFonts.dmMono(
-                        fontSize: 10,
-                        color: project.accentColor.withOpacity(0.85),
+                      child: Text(
+                        t,
+                        style: GoogleFonts.dmMono(
+                          fontSize: 10,
+                          color: project.accentColor
+                              .withOpacity(0.85),
+                        ),
                       ),
-                    ),
-                  ),
-                )
+                    ))
                 .toList(),
           ),
         ),
@@ -446,11 +469,14 @@ class _CardBannerPainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1;
 
-    canvas.drawCircle(Offset(size.width * 0.85, size.height * 0.2), 60, paint);
-    canvas.drawCircle(Offset(size.width * 0.1, size.height * 0.8), 40, paint);
+    canvas.drawCircle(
+        Offset(size.width * 0.85, size.height * 0.2), 60, paint);
+    canvas.drawCircle(
+        Offset(size.width * 0.1, size.height * 0.8), 40, paint);
 
     paint.color = color.withOpacity(hovered ? 0.06 : 0.03);
-    canvas.drawCircle(Offset(size.width * 0.85, size.height * 0.2), 100, paint);
+    canvas.drawCircle(
+        Offset(size.width * 0.85, size.height * 0.2), 100, paint);
 
     // Diagonal accent line
     paint
@@ -467,7 +493,8 @@ class _CardBannerPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_CardBannerPainter o) => o.hovered != hovered;
+  bool shouldRepaint(_CardBannerPainter o) =>
+      o.hovered != hovered;
 }
 
 // ── BACK FACE ─────────────────────────────────────────────────────────────────
@@ -482,7 +509,10 @@ class _BackFace extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [AppColors.card, project.accentColor.withOpacity(0.1)],
+          colors: [
+            AppColors.card,
+            project.accentColor.withOpacity(0.1),
+          ],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
@@ -513,14 +543,11 @@ class _BackFace extends StatelessWidget {
                     color: project.accentColor.withOpacity(0.15),
                     shape: BoxShape.circle,
                     border: Border.all(
-                      color: project.accentColor.withOpacity(0.4),
-                    ),
+                        color:
+                            project.accentColor.withOpacity(0.4)),
                   ),
-                  child: Icon(
-                    project.icon,
-                    color: project.accentColor,
-                    size: 18,
-                  ),
+                  child: Icon(project.icon,
+                      color: project.accentColor, size: 18),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -549,7 +576,9 @@ class _BackFace extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 16),
-            Divider(color: project.accentColor.withOpacity(0.2), height: 1),
+            Divider(
+                color: project.accentColor.withOpacity(0.2),
+                height: 1),
             const SizedBox(height: 16),
 
             // Highlights
@@ -572,10 +601,12 @@ class _BackFace extends StatelessWidget {
                       (h) => Padding(
                         padding: const EdgeInsets.only(bottom: 8),
                         child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment:
+                              CrossAxisAlignment.start,
                           children: [
                             Container(
-                              margin: const EdgeInsets.only(top: 4),
+                              margin:
+                                  const EdgeInsets.only(top: 4),
                               width: 5,
                               height: 5,
                               decoration: BoxDecoration(
@@ -615,13 +646,13 @@ class _BackFace extends StatelessWidget {
                       children: project.techStack.map((t) {
                         return Container(
                           padding: const EdgeInsets.symmetric(
-                            horizontal: 8,
-                            vertical: 4,
-                          ),
+                              horizontal: 8, vertical: 4),
                           decoration: BoxDecoration(
-                            color: project.accentColor.withOpacity(0.08),
+                            color: project.accentColor
+                                .withOpacity(0.08),
                             border: Border.all(
-                              color: project.accentColor.withOpacity(0.25),
+                              color: project.accentColor
+                                  .withOpacity(0.25),
                             ),
                             borderRadius: BorderRadius.circular(4),
                           ),
@@ -629,7 +660,8 @@ class _BackFace extends StatelessWidget {
                             t,
                             style: GoogleFonts.dmMono(
                               fontSize: 10,
-                              color: project.accentColor.withOpacity(0.9),
+                              color: project.accentColor
+                                  .withOpacity(0.9),
                             ),
                           ),
                         );
@@ -653,7 +685,8 @@ class _BackFace extends StatelessWidget {
 class _BackActions extends StatelessWidget {
   final ProjectModel project;
   final Future<void> Function(String) onLaunch;
-  const _BackActions({required this.project, required this.onLaunch});
+  const _BackActions(
+      {required this.project, required this.onLaunch});
 
   @override
   Widget build(BuildContext context) {
@@ -689,12 +722,11 @@ class _GradientActionBtn extends StatefulWidget {
   final String label;
   final Color color;
   final VoidCallback onTap;
-  const _GradientActionBtn({
-    required this.icon,
-    required this.label,
-    required this.color,
-    required this.onTap,
-  });
+  const _GradientActionBtn(
+      {required this.icon,
+      required this.label,
+      required this.color,
+      required this.onTap});
   @override
   State<_GradientActionBtn> createState() => _GradientActionBtnState();
 }
@@ -711,7 +743,8 @@ class _GradientActionBtnState extends State<_GradientActionBtn> {
         onTap: widget.onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 180),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
           decoration: BoxDecoration(
             gradient: LinearGradient(
               colors: [widget.color, widget.color.withBlue(200)],
@@ -720,9 +753,8 @@ class _GradientActionBtnState extends State<_GradientActionBtn> {
             boxShadow: _h
                 ? [
                     BoxShadow(
-                      color: widget.color.withOpacity(0.4),
-                      blurRadius: 14,
-                    ),
+                        color: widget.color.withOpacity(0.4),
+                        blurRadius: 14)
                   ]
                 : [],
           ),
@@ -731,14 +763,11 @@ class _GradientActionBtnState extends State<_GradientActionBtn> {
             children: [
               Icon(widget.icon, size: 14, color: Colors.black87),
               const SizedBox(width: 6),
-              Text(
-                widget.label,
-                style: GoogleFonts.sora(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.black87,
-                ),
-              ),
+              Text(widget.label,
+                  style: GoogleFonts.sora(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.black87)),
             ],
           ),
         ),
@@ -752,12 +781,11 @@ class _OutlinedActionBtn extends StatefulWidget {
   final String label;
   final Color color;
   final VoidCallback onTap;
-  const _OutlinedActionBtn({
-    required this.icon,
-    required this.label,
-    required this.color,
-    required this.onTap,
-  });
+  const _OutlinedActionBtn(
+      {required this.icon,
+      required this.label,
+      required this.color,
+      required this.onTap});
   @override
   State<_OutlinedActionBtn> createState() => _OutlinedActionBtnState();
 }
@@ -774,31 +802,28 @@ class _OutlinedActionBtnState extends State<_OutlinedActionBtn> {
         onTap: widget.onTap,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 180),
-          padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
+          padding:
+              const EdgeInsets.symmetric(horizontal: 14, vertical: 11),
           decoration: BoxDecoration(
             color: _h ? widget.color.withOpacity(0.1) : Colors.transparent,
             border: Border.all(
-              color: widget.color.withOpacity(_h ? 0.6 : 0.35),
-            ),
+                color: widget.color.withOpacity(_h ? 0.6 : 0.35)),
             borderRadius: BorderRadius.circular(10),
           ),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Icon(
-                widget.icon,
-                size: 14,
-                color: _h ? widget.color : AppColors.textSecondary,
-              ),
+              Icon(widget.icon,
+                  size: 14,
+                  color: _h ? widget.color : AppColors.textSecondary),
               const SizedBox(width: 6),
-              Text(
-                widget.label,
-                style: GoogleFonts.sora(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: _h ? widget.color : AppColors.textSecondary,
-                ),
-              ),
+              Text(widget.label,
+                  style: GoogleFonts.sora(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w700,
+                      color: _h
+                          ? widget.color
+                          : AppColors.textSecondary)),
             ],
           ),
         ),

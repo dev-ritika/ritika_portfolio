@@ -20,7 +20,7 @@ class AboutSection extends StatelessWidget {
     return SectionBackground(
       style: SectionBgStyle.dark,
       child: Padding(
-        padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 100),
+        padding: EdgeInsets.symmetric(horizontal: hPad, vertical: ResponsiveUtils.sectionVPadding(context)),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -35,14 +35,18 @@ class AboutSection extends StatelessWidget {
     );
   }
 
-  Widget _buildDesktopLayout(BuildContext context) => Row(
-    crossAxisAlignment: CrossAxisAlignment.start,
-    children: [
-      Expanded(flex: 5, child: _buildTextContent(context)),
-      const SizedBox(width: 80),
-      Expanded(flex: 5, child: _buildSkillsHighlight(context)),
-    ],
-  );
+  Widget _buildDesktopLayout(BuildContext context) {
+    final isTablet = ResponsiveUtils.isTablet(context);
+    if (isTablet) return _buildMobileLayout(context);
+    return Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Expanded(flex: 5, child: _buildTextContent(context)),
+        const SizedBox(width: 60),
+        Expanded(flex: 5, child: _buildSkillsHighlight(context)),
+      ],
+    );
+  }
 
   Widget _buildMobileLayout(BuildContext context) => Column(
     crossAxisAlignment: CrossAxisAlignment.start,
@@ -67,12 +71,12 @@ class AboutSection extends StatelessWidget {
                 ]),
                 const SizedBox(height: 16),
                 Text(AppStrings.aboutDescription,
-                  style: GoogleFonts.dmSans(fontSize: 16, color: AppColors.textSecondary, height: 1.8)),
+                  style: GoogleFonts.dmSans(fontSize: 15, color: AppColors.textSecondary, height: 1.75)),
                 const SizedBox(height: 20),
                 Text(
                   'I specialize in architecting production-grade Flutter apps with Clean Architecture and advanced state management. '
                   'Beyond code — I mentor developers, drive performance optimization, and build for real users at scale.',
-                  style: GoogleFonts.dmSans(fontSize: 15, color: AppColors.textSecondary.withOpacity(0.8), height: 1.8)),
+                  style: GoogleFonts.dmSans(fontSize: 14, color: AppColors.textSecondary.withOpacity(0.8), height: 1.75)),
               ],
             ),
           ),

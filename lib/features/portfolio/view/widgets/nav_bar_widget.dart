@@ -6,6 +6,7 @@ import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/responsive_utils.dart';
 import '../../bloc/portfolio_bloc.dart';
 import '../../bloc/portfolio_state.dart';
+import '../../viewmodel/portfolio_viewmodel.dart';
 
 class NavBarWidget extends StatefulWidget {
   final PortfolioViewModel viewModel;
@@ -30,10 +31,9 @@ class _NavBarWidgetState extends State<NavBarWidget>
       duration: const Duration(milliseconds: 600),
     )..forward();
 
-    _slideAnim = Tween<double>(
-      begin: -80,
-      end: 0,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic));
+    _slideAnim = Tween<double>(begin: -80, end: 0).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeOutCubic),
+    );
 
     widget.viewModel.scrollController.addListener(() {
       final offset = widget.viewModel.scrollController.offset;
@@ -69,8 +69,7 @@ class _NavBarWidgetState extends State<NavBarWidget>
               : Colors.transparent,
           border: _scrolled
               ? const Border(
-                  bottom: BorderSide(color: AppColors.border, width: 1),
-                )
+                  bottom: BorderSide(color: AppColors.border, width: 1))
               : null,
           boxShadow: _scrolled
               ? [
@@ -78,14 +77,12 @@ class _NavBarWidgetState extends State<NavBarWidget>
                     color: Colors.black.withOpacity(0.4),
                     blurRadius: 20,
                     offset: const Offset(0, 4),
-                  ),
+                  )
                 ]
               : null,
         ),
         child: ClipRect(
-          child: (isMobile || ResponsiveUtils.isTablet(context))
-              ? _buildMobileNav(context)
-              : _buildDesktopNav(context),
+          child: (isMobile || ResponsiveUtils.isTablet(context)) ? _buildMobileNav(context) : _buildDesktopNav(context),
         ),
       ),
     );
@@ -165,14 +162,10 @@ class _NavBarWidgetState extends State<NavBarWidget>
               onTap: () => widget.viewModel.navigateToSection(i),
               child: Container(
                 width: double.infinity,
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 14,
-                ),
+                padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 14),
                 decoration: BoxDecoration(
                   border: const Border(
-                    bottom: BorderSide(color: AppColors.border, width: 0.5),
-                  ),
+                      bottom: BorderSide(color: AppColors.border, width: 0.5)),
                   color: state.activeSection == i
                       ? AppColors.primary.withOpacity(0.05)
                       : null,

@@ -16,11 +16,11 @@ class FooterWidget extends StatelessWidget {
     return SectionBackground(
       style: SectionBgStyle.surface,
       child: Container(
-        padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 40),
+        padding: EdgeInsets.symmetric(horizontal: hPad, vertical: 32),
         decoration: BoxDecoration(
           border: Border(top: BorderSide(color: AppColors.border)),
         ),
-        child: isMobile ? _buildMobile() : _buildDesktop(),
+        child: (isMobile || ResponsiveUtils.isTablet(context)) ? _buildMobile() : _buildDesktop(),
       ),
     );
   }

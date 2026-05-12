@@ -77,4 +77,11 @@ class AppStrings {
   // Footer
   static const String footerText = '© 2026 Ritika Sharma. Crafted with Flutter & ❤️';
   static const String footerSub = 'Senior Flutter Developer • Mobile Application Expert';
+
+  // CV Download — replace with Ritika's actual Google Drive / Dropbox share link
+  static const String cvDownloadUrl =
+      'https://drive.google.com/file/d/YOUR_FILE_ID/view?usp=sharing';
 }
+
+// Add this to AppStrings class — paste inside the class body:
+// static const String cvDownloadUrl = 'https://drive.google.com/your-cv-link-here';

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/constants/app_colors.dart';
 
 class SkillCategory {
   final String title;
@@ -78,5 +79,8 @@ class CertificationModel {
   final String title;
   final String description;
 
-  const CertificationModel({required this.title, required this.description});
+  const CertificationModel({
+    required this.title,
+    required this.description,
+  });
 }
