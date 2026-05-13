@@ -45,6 +45,7 @@ class ProjectModel {
   final List<String> highlights;
   final String? githubUrl;
   final String? liveUrl;
+  final String? image;
   final Color accentColor;
   final IconData icon;
 
@@ -56,6 +57,7 @@ class ProjectModel {
     required this.highlights,
     this.githubUrl,
     this.liveUrl,
+    this.image,
     required this.accentColor,
     required this.icon,
   });
@@ -79,8 +81,5 @@ class CertificationModel {
   final String title;
   final String description;
 
-  const CertificationModel({
-    required this.title,
-    required this.description,
-  });
+  const CertificationModel({required this.title, required this.description});
 }

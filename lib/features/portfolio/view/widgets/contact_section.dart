@@ -61,7 +61,7 @@ class _ContactSectionState extends State<ContactSection> {
             AnimatedSectionWrapper(
               delay: const Duration(milliseconds: 100),
               child: SectionHeader(
-                label: '06. Contact',
+                label: '',
                 title: AppStrings.contactTitle,
                 subtitle: AppStrings.contactSubtitle,
               ),

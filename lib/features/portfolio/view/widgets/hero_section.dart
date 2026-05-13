@@ -349,7 +349,7 @@ class _HeroSectionState extends State<HeroSection>
             textAlign: align,
             style: GoogleFonts.dmMono(
               fontSize: 12,
-              color: AppColors.textMuted,
+              color: AppColors.textSecondary,
               letterSpacing: 0.3,
             ),
           ),
@@ -389,6 +389,8 @@ class _HeroSectionState extends State<HeroSection>
               'Flutter 3.x',
               'Dart 3.x',
               'Bloc',
+              'Provider',
+              'MVVM',
               'Firebase',
               'iOS & Android',
               'Clean Arch',
@@ -424,7 +426,7 @@ class _HeroSectionState extends State<HeroSection>
           'Scroll to explore',
           style: GoogleFonts.dmSans(
             fontSize: 11,
-            color: AppColors.textMuted,
+            color: AppColors.textSecondary,
             letterSpacing: 1,
           ),
         ),
@@ -658,7 +660,7 @@ class _ScrollIndicatorAnimationState extends State<_ScrollIndicatorAnimation>
       width: 24,
       height: 40,
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.border, width: 1.5),
+        border: Border.all(color: AppColors.textSecondary, width: 1.5),
         borderRadius: BorderRadius.circular(12),
       ),
       child: Padding(
@@ -773,7 +775,9 @@ class _HeroSecondaryBtnState extends State<_HeroSecondaryBtn> {
         decoration: BoxDecoration(
           color: _h ? AppColors.border : Colors.transparent,
           border: Border.all(
-            color: _h ? AppColors.primary.withOpacity(0.5) : AppColors.border,
+            color: _h
+                ? AppColors.primary.withOpacity(0.5)
+                : AppColors.textSecondary,
           ),
           borderRadius: BorderRadius.circular(8),
         ),
@@ -827,7 +831,7 @@ class _TechChipState extends State<_TechChip> {
         borderRadius: BorderRadius.circular(6),
       ),
       child: Text(
-        "label",
+        widget.label,
         style: GoogleFonts.dmMono(
           fontSize: 11,
           color: _h ? AppColors.primary : AppColors.textSecondary,
@@ -1221,6 +1225,10 @@ class _SwirlPhotoFrameState extends State<_SwirlPhotoFrame>
                     children: [
                       Container(
                         decoration: BoxDecoration(
+                          image: DecorationImage(
+                            image: AssetImage('assets/images/ritika_photo.jpg'),
+                            fit: BoxFit.cover,
+                          ),
                           gradient: LinearGradient(
                             colors: [
                               AppColors.primary.withOpacity(.08),
@@ -1249,44 +1257,45 @@ class _SwirlPhotoFrameState extends State<_SwirlPhotoFrame>
                           ),
                         ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Icon(
-                            Icons.person_rounded,
-                            size: s * .35,
-                            color: AppColors.primary.withOpacity(.3),
-                          ),
-                          const SizedBox(height: 8),
-                          ShaderMask(
-                            shaderCallback: (b) =>
-                                AppColors.heroGradient.createShader(b),
-                            child: Text(
-                              'RS',
-                              style: GoogleFonts.sora(
-                                fontSize: s * .18,
-                                fontWeight: FontWeight.w900,
-                                color: Colors.white,
-                                letterSpacing: -2,
-                              ),
-                            ),
-                          ),
-                          const SizedBox(height: 6),
-                          Text(
-                            'Add photo →',
-                            style: GoogleFonts.dmMono(
-                              fontSize: 11,
-                              color: AppColors.textMuted,
-                              letterSpacing: 1,
-                            ),
-                          ),
-                        ],
-                      ),
+                      // Transform.translate(
+                      //   offset: Offset(0, 200),
+                      //   child: ShaderMask(
+                      //     shaderCallback: (b) =>
+                      //         AppColors.heroGradient.createShader(b),
+                      //     child: Text(
+                      //       'RS',
+                      //       style: GoogleFonts.sora(
+                      //         fontSize: s * .18,
+                      //         fontWeight: FontWeight.w900,
+                      //         color: Colors.white,
+                      //         letterSpacing: -2,
+                      //       ),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ),
               ),
+
               // Floating badges — hidden on very small sizes
+              Positioned(
+                //offset: Offset(0, 200),
+                bottom: 0,
+                child: ShaderMask(
+                  shaderCallback: (b) => AppColors.heroGradient.createShader(b),
+                  child: Text(
+                    'RS',
+                    style: GoogleFonts.sora(
+                      fontSize: s * .18,
+                      fontWeight: FontWeight.w900,
+                      color: Colors.white,
+                      letterSpacing: -2,
+                    ),
+                  ),
+                ),
+              ),
+
               if (s >= 200) ..._buildFloatingBadges(s),
             ],
           ),

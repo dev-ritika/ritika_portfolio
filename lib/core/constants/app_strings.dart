@@ -16,11 +16,11 @@ class AppStrings {
     'Mobile App Developer',
     'iOS & Android Expert',
     'Clean Architecture Advocate',
-    'Bloc & Riverpod Specialist',
+    'Bloc & Provider Specialist',
   ];
 
   static const String heroSubtitle =
-      '3.8+ years in Flutter • 6+ years across SDLC • Building high-performance apps for global users';
+      '5+ years in Flutter • 6+ years across SDLC • Building high-performance apps for global users';
 
   static const String heroDescription =
       'I craft production-grade mobile experiences for iOS & Android using Flutter 3.x and Dart 3.x — '
@@ -32,7 +32,7 @@ class AppStrings {
   static const String aboutSubtitle = 'Crafting pixel-perfect experiences';
   static const String aboutDescription =
       'Senior Flutter Developer with expertise in cross-platform development for iOS and Android, '
-      'backed by 3.8+ years of hands-on Flutter (3.x) and Dart (3.x) experience and 6+ years across '
+      'backed by 5+ years of hands-on Flutter (3.x) and Dart (3.x) experience and 6+ years across '
       'the full Software Development Life Cycle. Expert in building high-performance, scalable systems '
       'and delivering mobile applications to global users through production-grade Flutter architecture.';
 
@@ -75,12 +75,14 @@ class AppStrings {
   static const String ctaLiveDemo = 'Live Demo';
 
   // Footer
-  static const String footerText = '© 2026 Ritika Sharma. Crafted with Flutter & ❤️';
-  static const String footerSub = 'Senior Flutter Developer • Mobile Application Expert';
+  static const String footerText =
+      '© 2026 Ritika Sharma. Crafted with Flutter & ❤️';
+  static const String footerSub =
+      'Senior Flutter Developer • Mobile Application Expert';
 
   // CV Download — replace with Ritika's actual Google Drive / Dropbox share link
   static const String cvDownloadUrl =
-      'https://drive.google.com/file/d/YOUR_FILE_ID/view?usp=sharing';
+      'https://drive.google.com/file/d/1W4V_0RlhzFAkOH8_E3wcva-qI4Mi5iaF/view?usp=sharing';
 }
 
 // Add this to AppStrings class — paste inside the class body:

@@ -39,7 +39,7 @@ class PortfolioRepository {
         title: 'State Management',
         color: Color(0xFFA855F7),
         icon: Icons.tune,
-        skills: ['Bloc', 'Provider', 'Riverpod', 'GetX', 'Async Programming'],
+        skills: ['Bloc', 'Provider', 'Async Programming'],
       ),
       SkillCategory(
         title: 'Firebase & Cloud',
@@ -131,12 +131,17 @@ class PortfolioRepository {
         ],
       ),
       ExperienceModel(
-        role: 'Instructor, App Development',
+        role: 'Instructor, App Development (Flutterflow)',
         company: 'Whitehat Education Technology Pvt. Ltd.',
         period: 'May 2020 – Jul 2022',
         location: 'Mumbai, India',
         type: 'Full-time Educator',
-        techStack: ['FlutterFlow', 'Flutter', 'Mobile Development', 'Curriculum Design'],
+        techStack: [
+          'FlutterFlow',
+          'Flutter',
+          'Mobile Development',
+          'Curriculum Design',
+        ],
         highlights: [
           'Drove 99%+ project completion rate across a cohort of 100+ students',
           'Designed outcome-focused mobile development curriculum spanning architecture through deployment',
@@ -151,7 +156,15 @@ class PortfolioRepository {
         period: 'Oct 2019 – Mar 2020',
         location: 'Mumbai, India',
         type: 'Internship',
-        techStack: ['ASP.NET MVC', 'SQL Server', 'Razor Views', 'REST APIs', 'HTML', 'CSS', 'JavaScript'],
+        techStack: [
+          'ASP.NET MVC',
+          'SQL Server',
+          'Razor Views',
+          'REST APIs',
+          'HTML',
+          'CSS',
+          'JavaScript',
+        ],
         highlights: [
           'Improved application load times by up to 30% by refactoring ASP.NET MVC backend logic',
           'Engineered 3 end-to-end MVC web modules reducing manual data entry by ~40%',
@@ -164,11 +177,19 @@ class PortfolioRepository {
   static List<ProjectModel> getProjects() {
     return const [
       ProjectModel(
+        image: 'assets/images/stallions_image.png',
         title: 'elRed.io Kiosk App',
         subtitle: 'Kiosk Management Application',
         description:
             'Production-grade Kiosk application deployed at Awfis co-working spaces, enabling seamless self-service workflows for on-site users across multiple locations.',
-        techStack: ['Flutter', 'Dart', 'Firebase', 'Clean Architecture', 'Bloc', 'REST APIs'],
+        techStack: [
+          'Flutter',
+          'Dart',
+          'Firebase',
+          'Clean Architecture',
+          'Bloc',
+          'REST APIs',
+        ],
         highlights: [
           'Deployed at Awfis co-working spaces across multiple locations',
           'Optimized app size by 20% via code splitting & asset compression',
@@ -177,7 +198,8 @@ class PortfolioRepository {
         ],
         accentColor: AppColors.primary,
         icon: Icons.tablet_android,
-        githubUrl: 'https://github.com/dev-ritika',
+        // githubUrl: 'https://github.com/dev-ritika',
+        liveUrl: "https://elred.io/",
       ),
       ProjectModel(
         title: 'elRed.io B2C App',
@@ -201,14 +223,24 @@ class PortfolioRepository {
         ],
         accentColor: AppColors.secondaryLight,
         icon: Icons.phone_iphone,
-        githubUrl: 'https://github.com/dev-ritika',
+        // githubUrl: 'https://github.com/dev-ritika',
+        liveUrl:
+            "https://play.google.com/store/apps/details?id=com.elredmod.one&pcampaignid=web_share",
       ),
       ProjectModel(
         title: 'Stallions Tech Labs Website',
         subtitle: 'Corporate Website',
         description:
             'Official corporate website for a Mumbai-based software consultancy covering web, mobile, SEO, QA, and BPO services.',
-        techStack: ['ASP.NET MVC', 'SQL Server', 'Razor Views', 'HTML', 'CSS', 'JavaScript', 'REST APIs'],
+        techStack: [
+          'ASP.NET MVC',
+          'SQL Server',
+          'Razor Views',
+          'HTML',
+          'CSS',
+          'JavaScript',
+          'REST APIs',
+        ],
         highlights: [
           'Responsive data-driven Razor views with MVC controllers',
           'SEO-friendly page structure for improved search visibility',
@@ -216,14 +248,21 @@ class PortfolioRepository {
         ],
         accentColor: AppColors.accent,
         icon: Icons.web,
-        githubUrl: 'https://github.com/dev-ritika',
+        liveUrl: 'http://stallionssoftwares.com/',
       ),
       ProjectModel(
         title: 'Fitness Fanatic Gym Website',
         subtitle: 'Business Website',
         description:
             'Full business website for a Mumbai-based fitness centre featuring memberships, class schedules, trainer profiles, and contact/enquiry functionality.',
-        techStack: ['ASP.NET MVC', 'SQL Server', 'Razor Views', 'HTML', 'CSS', 'JavaScript'],
+        techStack: [
+          'ASP.NET MVC',
+          'SQL Server',
+          'Razor Views',
+          'HTML',
+          'CSS',
+          'JavaScript',
+        ],
         highlights: [
           'Enquiry and contact management module using MVC + SQL Server',
           'Mobile-responsive UI ensuring consistent cross-device experience',
@@ -231,7 +270,7 @@ class PortfolioRepository {
         ],
         accentColor: AppColors.skillBackend,
         icon: Icons.fitness_center,
-        githubUrl: 'https://github.com/dev-ritika',
+        liveUrl: 'https://fitnessfanaticsgym.com/',
       ),
     ];
   }
@@ -269,11 +308,13 @@ class PortfolioRepository {
     return const [
       CertificationModel(
         title: 'The Ultimate Hands-On Flutter & MVVM',
-        description: 'Deep dive into MVVM architecture, scalable app structure, and real-world implementation',
+        description:
+            'Deep dive into MVVM architecture, scalable app structure, and real-world implementation',
       ),
       CertificationModel(
         title: 'Flutter & Dart: The Complete Guide',
-        description: 'Comprehensive coverage of Flutter fundamentals, state management, and production practices',
+        description:
+            'Comprehensive coverage of Flutter fundamentals, state management, and production practices',
       ),
     ];
   }

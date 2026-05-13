@@ -26,7 +26,7 @@ class _TechGlobeState extends State<TechGlobe>
     ('Firebase', Color(0xFFFF6B2B)),
     ('BLoC', AppColors.accent),
     ('Provider', Color(0xFF10B981)),
-    ('Riverpod', Color(0xFF6366F1)),
+    // ('Riverpod', Color(0xFF6366F1)),
     ('Clean Arch', AppColors.primary),
     ('MVVM', AppColors.secondary),
     ('REST APIs', Color(0xFF14B8A6)),
@@ -60,12 +60,14 @@ class _TechGlobeState extends State<TechGlobe>
       final y = 1 - (i / (n - 1)) * 2;
       final r = math.sqrt(1 - y * y);
       final theta = golden * i;
-      _nodes.add(_TechNode(
-        theta: theta,
-        phi: math.asin(y),
-        label: _techs[i].$1,
-        color: _techs[i].$2,
-      ));
+      _nodes.add(
+        _TechNode(
+          theta: theta,
+          phi: math.asin(y),
+          label: _techs[i].$1,
+          color: _techs[i].$2,
+        ),
+      );
     }
   }
 
@@ -95,11 +97,9 @@ class _TechGlobeState extends State<TechGlobe>
                 final i = e.key;
                 final node = e.value;
                 // Rotate around Y axis
-                final x3d = math.cos(node.theta + rot) *
-                    math.cos(node.phi);
+                final x3d = math.cos(node.theta + rot) * math.cos(node.phi);
                 final y3d = math.sin(node.phi);
-                final z3d = math.sin(node.theta + rot) *
-                    math.cos(node.phi);
+                final z3d = math.sin(node.theta + rot) * math.cos(node.phi);
                 // Perspective project
                 final scale = globeSize / 2;
                 final fov = 2.0;
@@ -115,8 +115,7 @@ class _TechGlobeState extends State<TechGlobe>
                   depth: depth,
                   node: node,
                 );
-              }).toList()
-                ..sort((a, b) => a.depth.compareTo(b.depth));
+              }).toList()..sort((a, b) => a.depth.compareTo(b.depth));
 
               return Stack(
                 children: [
@@ -128,8 +127,7 @@ class _TechGlobeState extends State<TechGlobe>
                   // Nodes
                   ...projected.map((p) {
                     final isHovered = _hoveredIndex == p.index;
-                    final nodeSize = 6.0 + p.depth * 10 +
-                        (isHovered ? 8 : 0);
+                    final nodeSize = 6.0 + p.depth * 10 + (isHovered ? 8 : 0);
                     final opacity = 0.3 + p.depth * 0.7;
 
                     return Positioned(
@@ -137,26 +135,22 @@ class _TechGlobeState extends State<TechGlobe>
                       top: p.y - nodeSize / 2,
                       child: MouseRegion(
                         cursor: SystemMouseCursors.click,
-                        onEnter: (_) =>
-                            setState(() => _hoveredIndex = p.index),
-                        onExit: (_) =>
-                            setState(() => _hoveredIndex = -1),
+                        onEnter: (_) => setState(() => _hoveredIndex = p.index),
+                        onExit: (_) => setState(() => _hoveredIndex = -1),
                         child: GestureDetector(
                           child: AnimatedContainer(
-                            duration:
-                                const Duration(milliseconds: 200),
+                            duration: const Duration(milliseconds: 200),
                             width: nodeSize,
                             height: nodeSize,
                             decoration: BoxDecoration(
                               shape: BoxShape.circle,
-                              color: p.node.color
-                                  .withOpacity(opacity * 0.9),
+                              color: p.node.color.withOpacity(opacity * 0.9),
                               boxShadow: [
                                 BoxShadow(
                                   color: p.node.color.withOpacity(
-                                      opacity * 0.5),
-                                  blurRadius:
-                                      isHovered ? 16 : 6,
+                                    opacity * 0.5,
+                                  ),
+                                  blurRadius: isHovered ? 16 : 6,
                                 ),
                               ],
                             ),
@@ -168,76 +162,73 @@ class _TechGlobeState extends State<TechGlobe>
 
                   // Label for hovered / front nodes
                   ...projected
-                      .where((p) =>
-                          p.depth > 0.72 ||
-                          _hoveredIndex == p.index)
+                      .where((p) => p.depth > 0.72 || _hoveredIndex == p.index)
                       .map((p) {
-                    final isHovered = _hoveredIndex == p.index;
-                    return Positioned(
-                      left: p.x + 10,
-                      top: p.y - 10,
-                      child: IgnorePointer(
-                        child: AnimatedOpacity(
-                          duration:
-                              const Duration(milliseconds: 200),
-                          opacity: isHovered
-                              ? 1.0
-                              : (p.depth - 0.72) / 0.28,
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                horizontal: 8, vertical: 4),
-                            decoration: BoxDecoration(
-                              color: isHovered
-                                  ? p.node.color.withOpacity(0.2)
-                                  : AppColors.surface
-                                      .withOpacity(0.85),
-                              border: Border.all(
-                                color: p.node.color
-                                    .withOpacity(0.5),
-                              ),
-                              borderRadius:
-                                  BorderRadius.circular(20),
-                              boxShadow: isHovered
-                                  ? [
-                                      BoxShadow(
-                                        color: p.node.color
-                                            .withOpacity(0.3),
-                                        blurRadius: 10,
-                                      )
-                                    ]
-                                  : [],
-                            ),
-                            child: Text(
-                              p.node.label,
-                              style: GoogleFonts.dmMono(
-                                fontSize: 10,
-                                color: isHovered
-                                    ? p.node.color
-                                    : AppColors.textSecondary,
-                                fontWeight: FontWeight.w600,
-                                letterSpacing: 0.3,
+                        final isHovered = _hoveredIndex == p.index;
+                        return Positioned(
+                          left: p.x + 10,
+                          top: p.y - 10,
+                          child: IgnorePointer(
+                            child: AnimatedOpacity(
+                              duration: const Duration(milliseconds: 200),
+                              opacity: isHovered
+                                  ? 1.0
+                                  : (p.depth - 0.72) / 0.28,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 8,
+                                  vertical: 4,
+                                ),
+                                decoration: BoxDecoration(
+                                  color: isHovered
+                                      ? p.node.color.withOpacity(0.2)
+                                      : AppColors.surface.withOpacity(0.85),
+                                  border: Border.all(
+                                    color: p.node.color.withOpacity(0.5),
+                                  ),
+                                  borderRadius: BorderRadius.circular(20),
+                                  boxShadow: isHovered
+                                      ? [
+                                          BoxShadow(
+                                            color: p.node.color.withOpacity(
+                                              0.3,
+                                            ),
+                                            blurRadius: 10,
+                                          ),
+                                        ]
+                                      : [],
+                                ),
+                                child: Text(
+                                  p.node.label,
+                                  style: GoogleFonts.dmMono(
+                                    fontSize: 10,
+                                    color: isHovered
+                                        ? p.node.color
+                                        : AppColors.textSecondary,
+                                    fontWeight: FontWeight.w600,
+                                    letterSpacing: 0.3,
+                                  ),
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      ),
-                    );
-                  }),
+                        );
+                      }),
                 ],
               );
             },
           ),
         ),
 
-        const SizedBox(height: 16),
-        Text(
-          'Hover the globe — 22+ technologies',
-          style: GoogleFonts.dmSans(
-            fontSize: 13,
-            color: AppColors.textMuted,
-            letterSpacing: 0.5,
-          ),
-        ),
+        // const SizedBox(height: 16),
+        // Text(
+        //   'Hover the globe — 22+ technologies',
+        //   style: GoogleFonts.dmSans(
+        //     fontSize: 13,
+        //     color: AppColors.textMuted,
+        //     letterSpacing: 0.5,
+        //   ),
+        // ),
       ],
     );
   }
@@ -328,11 +319,7 @@ class _GlobeWireframePainter extends CustomPainter {
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.5;
     canvas.drawOval(
-      Rect.fromCenter(
-        center: Offset(cx, cy),
-        width: r * 2,
-        height: r * 0.4,
-      ),
+      Rect.fromCenter(center: Offset(cx, cy), width: r * 2, height: r * 0.4),
       eqPaint,
     );
 
@@ -353,6 +340,5 @@ class _GlobeWireframePainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(_GlobeWireframePainter o) =>
-      o.rotation != rotation;
+  bool shouldRepaint(_GlobeWireframePainter o) => o.rotation != rotation;
 }

@@ -43,7 +43,8 @@ class _HomeScreenState extends State<HomeScreen> {
         final box = ctx.findRenderObject() as RenderBox?;
         if (box != null) {
           final pos = box.localToGlobal(Offset.zero);
-          if (pos.dy >= -100 && pos.dy < MediaQuery.of(context).size.height * 0.5) {
+          if (pos.dy >= -100 &&
+              pos.dy < MediaQuery.of(context).size.height * 0.5) {
             _viewModel.updateActiveSection(i);
             break;
           }
@@ -77,7 +78,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       key: _sectionKeys[0],
                       child: HeroSection(
                         onContactTap: () => _viewModel.navigateToSection(6),
-                        onProjectsTap: () => _viewModel.navigateToSection(5),
+                        onProjectsTap: () => _viewModel.navigateToSection(4),
                       ),
                     ),
 
@@ -116,10 +117,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     ),
 
                     // Footer
-                    SizedBox(
-                      key: _sectionKeys[6],
-                      child: const FooterWidget(),
-                    ),
+                    SizedBox(key: _sectionKeys[6], child: const FooterWidget()),
                   ],
                 ),
               ),
