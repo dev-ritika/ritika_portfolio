@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ritika_portfolio/core/network/httpclient.dart';
 import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/responsive_utils.dart';
@@ -31,16 +32,38 @@ class _ContactSectionState extends State<ContactSection> {
     super.dispose();
   }
 
+  // Future<void> _submitForm() async {
+  //   if (!_formKey.currentState!.validate()) return;
+  //   setState(() => _sending = true);
+  //   await Future.delayed(const Duration(seconds: 2));
+  //   if (mounted) {
+  //     setState(() {
+  //       _sending = false;
+  //       _sent = true;
+  //     });
+  //   }
+  // }
+
   Future<void> _submitForm() async {
     if (!_formKey.currentState!.validate()) return;
     setState(() => _sending = true);
-    await Future.delayed(const Duration(seconds: 2));
-    if (mounted) {
-      setState(() {
-        _sending = false;
-        _sent = true;
-      });
+
+    final ok = await sendEmail(
+      name: _nameController.text,
+      email: _emailController.text,
+      message: _messageController.text,
+    );
+
+    if (!mounted) return;
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(content: Text(ok ? 'Message sent!' : 'Failed to send.')),
+    );
+    if (ok) {
+      _nameController.clear();
+      _emailController.clear();
+      _messageController.clear();
     }
+    setState(() => _sending = false);
   }
 
   @override

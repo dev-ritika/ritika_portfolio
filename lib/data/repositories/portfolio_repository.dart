@@ -177,31 +177,7 @@ class PortfolioRepository {
   static List<ProjectModel> getProjects() {
     return const [
       ProjectModel(
-        image: 'assets/images/stallions_image.png',
-        title: 'elRed.io Kiosk App',
-        subtitle: 'Kiosk Management Application',
-        description:
-            'Production-grade Kiosk application deployed at Awfis co-working spaces, enabling seamless self-service workflows for on-site users across multiple locations.',
-        techStack: [
-          'Flutter',
-          'Dart',
-          'Firebase',
-          'Clean Architecture',
-          'Bloc',
-          'REST APIs',
-        ],
-        highlights: [
-          'Deployed at Awfis co-working spaces across multiple locations',
-          'Optimized app size by 20% via code splitting & asset compression',
-          'Clean Architecture + Bloc for highly maintainable, scalable codebase',
-          'Firebase Analytics for real-time user engagement monitoring',
-        ],
-        accentColor: AppColors.primary,
-        icon: Icons.tablet_android,
-        // githubUrl: 'https://github.com/dev-ritika',
-        liveUrl: "https://elred.io/",
-      ),
-      ProjectModel(
+        image: 'assets/images/elred_image.png',
         title: 'elRed.io B2C App',
         subtitle: 'iOS & Android Consumer App',
         description:
@@ -227,7 +203,35 @@ class PortfolioRepository {
         liveUrl:
             "https://play.google.com/store/apps/details?id=com.elredmod.one&pcampaignid=web_share",
       ),
+
       ProjectModel(
+        image: 'assets/images/kiosk_image.png',
+        title: 'elRed.io Kiosk App',
+        subtitle: 'Kiosk Management Application',
+        description:
+            'Production-grade Kiosk application deployed at Awfis co-working spaces, enabling seamless self-service workflows for on-site users across multiple locations.',
+        techStack: [
+          'Flutter',
+          'Dart',
+          'Firebase',
+          'Clean Architecture',
+          'Bloc',
+          'REST APIs',
+        ],
+        highlights: [
+          'Deployed at Awfis co-working spaces across multiple locations',
+          'Optimized app size by 20% via code splitting & asset compression',
+          'Clean Architecture + Bloc for highly maintainable, scalable codebase',
+          'Firebase Analytics for real-time user engagement monitoring',
+        ],
+        accentColor: AppColors.primary,
+        icon: Icons.tablet_android,
+        // githubUrl: 'https://github.com/dev-ritika',
+        liveUrl: "https://elred.io/",
+      ),
+
+      ProjectModel(
+        image: 'assets/images/stallions_image.png',
         title: 'Stallions Tech Labs Website',
         subtitle: 'Corporate Website',
         description:
@@ -251,6 +255,7 @@ class PortfolioRepository {
         liveUrl: 'http://stallionssoftwares.com/',
       ),
       ProjectModel(
+        image: 'assets/images/fitness_image.png',
         title: 'Fitness Fanatic Gym Website',
         subtitle: 'Business Website',
         description:

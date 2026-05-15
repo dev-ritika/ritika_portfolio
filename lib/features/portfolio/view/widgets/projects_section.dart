@@ -345,67 +345,68 @@ class _ProjectImageBanner extends StatelessWidget {
         ),
 
         // Large icon centrepiece
-        Center(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AnimatedContainer(
-                duration: const Duration(milliseconds: 300),
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  color: project.accentColor.withOpacity(hovered ? 0.25 : 0.14),
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: project.accentColor.withOpacity(hovered ? 0.6 : 0.3),
-                    width: 2,
-                  ),
-                  boxShadow: hovered
-                      ? [
-                          BoxShadow(
-                            color: project.accentColor.withOpacity(0.4),
-                            blurRadius: 30,
-                          ),
-                        ]
-                      : [],
-                ),
-                child: Icon(project.icon, color: project.accentColor, size: 40),
-              ),
-              const SizedBox(height: 10),
-              // Image placeholder tag
-              Container(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 10,
-                  vertical: 4,
-                ),
-                decoration: BoxDecoration(
-                  color: AppColors.surface.withOpacity(0.7),
-                  borderRadius: BorderRadius.circular(20),
-                  border: Border.all(
-                    color: project.accentColor.withOpacity(0.3),
-                  ),
-                ),
-                child: Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Icon(
-                      Icons.add_photo_alternate_outlined,
-                      size: 12,
-                      color: project.accentColor.withOpacity(0.7),
-                    ),
-                    const SizedBox(width: 4),
-                    Text(
-                      'Add screenshot',
-                      style: GoogleFonts.dmMono(
-                        fontSize: 10,
-                        color: project.accentColor.withOpacity(0.7),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-        ),
+        // Center(
+        //   child: Column(
+        //     mainAxisSize: MainAxisSize.min,
+        //     children: [
+        //       AnimatedContainer(
+        //         duration: const Duration(milliseconds: 300),
+        //         padding: const EdgeInsets.all(20),
+        //         decoration: BoxDecoration(
+        //           color: project.accentColor.withOpacity(hovered ? 0.25 : 0.14),
+        //           shape: BoxShape.circle,
+        //           border: Border.all(
+        //             color: project.accentColor.withOpacity(hovered ? 0.6 : 0.3),
+        //             width: 2,
+        //           ),
+        //           boxShadow: hovered
+        //               ? [
+        //                   BoxShadow(
+        //                     color: project.accentColor.withOpacity(0.4),
+        //                     blurRadius: 30,
+        //                   ),
+        //                 ]
+        //               : [],
+        //         ),
+        //         child: Icon(project.icon, color: project.accentColor, size: 40),
+        //       ),
+        //       const SizedBox(height: 10),
+
+        //       // Image placeholder tag
+        //       // Container(
+        //       //   padding: const EdgeInsets.symmetric(
+        //       //     horizontal: 10,
+        //       //     vertical: 4,
+        //       //   ),
+        //       //   decoration: BoxDecoration(
+        //       //     color: AppColors.surface.withOpacity(0.7),
+        //       //     borderRadius: BorderRadius.circular(20),
+        //       //     border: Border.all(
+        //       //       color: project.accentColor.withOpacity(0.3),
+        //       //     ),
+        //       //   ),
+        //       //   child: Row(
+        //       //     mainAxisSize: MainAxisSize.min,
+        //       //     children: [
+        //       //       Icon(
+        //       //         Icons.add_photo_alternate_outlined,
+        //       //         size: 12,
+        //       //         color: project.accentColor.withOpacity(0.7),
+        //       //       ),
+        //       //       const SizedBox(width: 4),
+        //       //       Text(
+        //       //         'Add screenshot',
+        //       //         style: GoogleFonts.dmMono(
+        //       //           fontSize: 10,
+        //       //           color: project.accentColor.withOpacity(0.7),
+        //       //         ),
+        //       //       ),
+        //       //     ],
+        //       //   ),
+        //       // ),
+        //     ],
+        //   ),
+        // ),
 
         // Tech stack strip at bottom of banner
         Positioned(
@@ -424,17 +425,18 @@ class _ProjectImageBanner extends StatelessWidget {
                       vertical: 3,
                     ),
                     decoration: BoxDecoration(
-                      color: AppColors.background.withOpacity(0.7),
+                      color: AppColors.background.withOpacity(0.8),
                       border: Border.all(
-                        color: project.accentColor.withOpacity(0.3),
+                        color: project.accentColor.withOpacity(0.5),
                       ),
                       borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
                       t,
                       style: GoogleFonts.dmMono(
+                        fontWeight: FontWeight.bold,
                         fontSize: 10,
-                        color: project.accentColor.withOpacity(0.85),
+                        color: project.accentColor,
                       ),
                     ),
                   ),
