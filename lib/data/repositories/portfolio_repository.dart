@@ -178,7 +178,7 @@ class PortfolioRepository {
     return const [
       ProjectModel(
         image: 'assets/images/elred_image.png',
-        title: 'elRed.io B2C App',
+        title: 'elRed - B2C App',
         subtitle: 'iOS & Android Consumer App',
         description:
             'Customer-facing B2C app for iOS and Android delivering a high-performance, responsive experience aligned with product and design requirements.',
@@ -206,7 +206,7 @@ class PortfolioRepository {
 
       ProjectModel(
         image: 'assets/images/kiosk_image.png',
-        title: 'elRed.io Kiosk App',
+        title: 'elRed - Kiosk App',
         subtitle: 'Kiosk Management Application',
         description:
             'Production-grade Kiosk application deployed at Awfis co-working spaces, enabling seamless self-service workflows for on-site users across multiple locations.',
@@ -227,7 +227,8 @@ class PortfolioRepository {
         accentColor: AppColors.primary,
         icon: Icons.tablet_android,
         // githubUrl: 'https://github.com/dev-ritika',
-        liveUrl: "https://elred.io/",
+        liveUrl:
+            "https://drive.google.com/file/d/1jVtaVUTVbufzjQKoWGmVSdmK16S0IHtS/view?usp=sharing",
       ),
 
       ProjectModel(
@@ -240,6 +241,7 @@ class PortfolioRepository {
           'ASP.NET MVC',
           'SQL Server',
           'Razor Views',
+          'C#',
           'HTML',
           'CSS',
           'JavaScript',
@@ -264,6 +266,7 @@ class PortfolioRepository {
           'ASP.NET MVC',
           'SQL Server',
           'Razor Views',
+          'C#',
           'HTML',
           'CSS',
           'JavaScript',

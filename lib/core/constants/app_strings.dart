@@ -82,8 +82,5 @@ class AppStrings {
 
   // CV Download — replace with Ritika's actual Google Drive / Dropbox share link
   static const String cvDownloadUrl =
-      'https://drive.google.com/file/d/1W4V_0RlhzFAkOH8_E3wcva-qI4Mi5iaF/view?usp=sharing';
+      'https://drive.google.com/file/d/1I3U3iMUZVzWRILDUKFzMMDeIwy-GJj0z/view?usp=sharing';
 }
-
-// Add this to AppStrings class — paste inside the class body:
-// static const String cvDownloadUrl = 'https://drive.google.com/your-cv-link-here';

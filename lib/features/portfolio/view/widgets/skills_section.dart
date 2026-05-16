@@ -130,8 +130,8 @@ class SkillsSection extends StatelessWidget {
             child: isMobile
                 ? Column(
                     children: [
-                      _buildGlobeHint(),
-                      const SizedBox(height: 24),
+                      // _buildGlobeHint(),
+                      // const SizedBox(height: 24),
                       const TechGlobe(),
                     ],
                   )
@@ -151,17 +151,17 @@ class SkillsSection extends StatelessWidget {
     );
   }
 
-  Widget _buildGlobeHint() {
-    return Text(
-      'Hover any node to see the technology',
-      style: GoogleFonts.dmSans(
-        fontSize: 13,
-        color: AppColors.textMuted,
-        letterSpacing: 0.3,
-      ),
-      textAlign: TextAlign.center,
-    );
-  }
+  // Widget _buildGlobeHint() {
+  //   return Text(
+  //     'Hover any node to see the technology',
+  //     style: GoogleFonts.dmSans(
+  //       fontSize: 13,
+  //       color: AppColors.textMuted,
+  //       letterSpacing: 0.3,
+  //     ),
+  //     textAlign: TextAlign.center,
+  //   );
+  // }
 
   Widget _buildGlobeInfo() {
     final highlights = [

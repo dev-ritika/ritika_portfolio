@@ -52,7 +52,7 @@ class ProjectsSection extends StatelessWidget {
                 Icon(Icons.flip, size: 14, color: AppColors.textMuted),
                 const SizedBox(width: 6),
                 Text(
-                  'Hover a card to flip it and explore the project',
+                  'Hover / Tap a card to flip it and explore the project',
                   style: GoogleFonts.dmSans(
                     fontSize: 13,
                     color: AppColors.textMuted,
@@ -149,35 +149,46 @@ class _FlipProjectCardState extends State<_FlipProjectCard>
 
   @override
   Widget build(BuildContext context) {
-    return MouseRegion(
-      cursor: SystemMouseCursors.click,
-      onEnter: (_) => _onHoverChanged(true),
-      onExit: (_) => _onHoverChanged(false),
-      child: AnimatedBuilder(
-        animation: _anim,
-        builder: (_, __) {
-          // 0..0.5 = front face visible, 0.5..1 = back face visible
-          final angle = _anim.value * math.pi;
-          final showFront = _anim.value < 0.5;
+    return GestureDetector(
+      onTap: () {
+        if (!_flipped) {
+          _ctrl.forward();
+          setState(() => _flipped = true);
+        } else {
+          _ctrl.reverse();
+          setState(() => _flipped = false);
+        }
+      },
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        onEnter: (_) => _onHoverChanged(true),
+        onExit: (_) => _onHoverChanged(false),
+        child: AnimatedBuilder(
+          animation: _anim,
+          builder: (_, __) {
+            // 0..0.5 = front face visible, 0.5..1 = back face visible
+            final angle = _anim.value * math.pi;
+            final showFront = _anim.value < 0.5;
 
-          return Transform(
-            alignment: Alignment.center,
-            transform: Matrix4.identity()
-              ..setEntry(3, 2, 0.001)
-              ..rotateY(angle),
-            child: showFront
-                ? _FrontFace(project: widget.project, hovered: _hovered)
-                : Transform(
-                    // counter-rotate so back isn't mirrored
-                    alignment: Alignment.center,
-                    transform: Matrix4.rotationY(math.pi),
-                    child: _BackFace(
-                      project: widget.project,
-                      onLaunch: _launchUrl,
+            return Transform(
+              alignment: Alignment.center,
+              transform: Matrix4.identity()
+                ..setEntry(3, 2, 0.001)
+                ..rotateY(angle),
+              child: showFront
+                  ? _FrontFace(project: widget.project, hovered: _hovered)
+                  : Transform(
+                      // counter-rotate so back isn't mirrored
+                      alignment: Alignment.center,
+                      transform: Matrix4.rotationY(math.pi),
+                      child: _BackFace(
+                        project: widget.project,
+                        onLaunch: _launchUrl,
+                      ),
                     ),
-                  ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
@@ -658,7 +669,12 @@ class _BackFace extends StatelessWidget {
 
             const SizedBox(height: 16),
             // Actions row
-            _BackActions(project: project, onLaunch: onLaunch),
+            GestureDetector(
+              onTap:
+                  () {}, // absorbs tap so it doesn't bubble up to flip toggle
+              behavior: HitTestBehavior.opaque,
+              child: _BackActions(project: project, onLaunch: onLaunch),
+            ),
           ],
         ),
       ),

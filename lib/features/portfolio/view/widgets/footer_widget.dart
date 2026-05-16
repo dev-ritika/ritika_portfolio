@@ -4,6 +4,7 @@ import '../../../../core/constants/app_colors.dart';
 import '../../../../core/constants/app_strings.dart';
 import '../../../../core/utils/responsive_utils.dart';
 import 'section_background.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class FooterWidget extends StatelessWidget {
   const FooterWidget({super.key});
@@ -20,7 +21,9 @@ class FooterWidget extends StatelessWidget {
         decoration: BoxDecoration(
           border: Border(top: BorderSide(color: AppColors.border)),
         ),
-        child: (isMobile || ResponsiveUtils.isTablet(context)) ? _buildMobile() : _buildDesktop(),
+        child: (isMobile || ResponsiveUtils.isTablet(context))
+            ? _buildMobile()
+            : _buildDesktop(),
       ),
     );
   }
@@ -28,11 +31,7 @@ class FooterWidget extends StatelessWidget {
   Widget _buildDesktop() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        _buildBranding(),
-        _buildSocials(),
-        _buildCopy(),
-      ],
+      children: [_buildBranding(), _buildSocials(), _buildCopy()],
     );
   }
 
@@ -53,7 +52,8 @@ class FooterWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ShaderMask(
-          shaderCallback: (bounds) => AppColors.primaryGradient.createShader(bounds),
+          shaderCallback: (bounds) =>
+              AppColors.primaryGradient.createShader(bounds),
           child: Text(
             'RS',
             style: GoogleFonts.sora(
@@ -67,10 +67,7 @@ class FooterWidget extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           AppStrings.footerSub,
-          style: GoogleFonts.dmSans(
-            fontSize: 12,
-            color: AppColors.textMuted,
-          ),
+          style: GoogleFonts.dmSans(fontSize: 12, color: AppColors.textMuted),
         ),
       ],
     );
@@ -94,10 +91,7 @@ class FooterWidget extends StatelessWidget {
   Widget _buildCopy() {
     return Text(
       AppStrings.footerText,
-      style: GoogleFonts.dmSans(
-        fontSize: 12,
-        color: AppColors.textMuted,
-      ),
+      style: GoogleFonts.dmSans(fontSize: 12, color: AppColors.textMuted),
     );
   }
 }
@@ -107,7 +101,11 @@ class _SocialIconBtn extends StatefulWidget {
   final String tooltip;
   final String url;
 
-  const _SocialIconBtn({required this.icon, required this.tooltip, required this.url});
+  const _SocialIconBtn({
+    required this.icon,
+    required this.tooltip,
+    required this.url,
+  });
 
   @override
   State<_SocialIconBtn> createState() => _SocialIconBtnState();
@@ -115,6 +113,13 @@ class _SocialIconBtn extends StatefulWidget {
 
 class _SocialIconBtnState extends State<_SocialIconBtn> {
   bool _hovered = false;
+
+  Future<void> _launch() async {
+    final uri = Uri.parse(widget.url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -124,23 +129,31 @@ class _SocialIconBtnState extends State<_SocialIconBtn> {
         cursor: SystemMouseCursors.click,
         onEnter: (_) => setState(() => _hovered = true),
         onExit: (_) => setState(() => _hovered = false),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 6),
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            width: 38,
-            height: 38,
-            decoration: BoxDecoration(
-              color: _hovered ? AppColors.primary.withOpacity(0.15) : AppColors.card,
-              shape: BoxShape.circle,
-              border: Border.all(
-                color: _hovered ? AppColors.primary.withOpacity(0.5) : AppColors.border,
+        child: GestureDetector(
+          // 👈 added
+          onTap: _launch,
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6),
+            child: AnimatedContainer(
+              duration: const Duration(milliseconds: 200),
+              width: 38,
+              height: 38,
+              decoration: BoxDecoration(
+                color: _hovered
+                    ? AppColors.primary.withOpacity(0.15)
+                    : AppColors.card,
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: _hovered
+                      ? AppColors.primary.withOpacity(0.5)
+                      : AppColors.border,
+                ),
               ),
-            ),
-            child: Icon(
-              widget.icon,
-              size: 16,
-              color: _hovered ? AppColors.primary : AppColors.textSecondary,
+              child: Icon(
+                widget.icon,
+                size: 16,
+                color: _hovered ? AppColors.primary : AppColors.textSecondary,
+              ),
             ),
           ),
         ),
